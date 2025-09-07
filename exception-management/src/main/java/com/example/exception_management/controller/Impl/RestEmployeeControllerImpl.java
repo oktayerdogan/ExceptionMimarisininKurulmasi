@@ -8,20 +8,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.exception_management.controller.RestEmployeeController;
 import com.example.exception_management.dto.DtoEmployee;
+import com.example.exception_management.model.RootEntity;
 import com.example.exception_management.service.IEmployeeService;
 
 @RestController
 @RequestMapping("/rest/api/employee")
-public class RestEmployeeControllerImpl implements RestEmployeeController{
+public class RestEmployeeControllerImpl extends RestBaseController implements RestEmployeeController{
 
     @Autowired
     private IEmployeeService employeeService;
 
     @Override
     @GetMapping("/list/{id}")
-    public DtoEmployee finDtoEmployeeById(@PathVariable(value = "id") Long id) {
-        
-        return employeeService.findEmployeeById(id);
-    }
+    public RootEntity<DtoEmployee> finDtoEmployeeById(@PathVariable(value = "id") Long id) { 
 
+        return ok(employeeService.findEmployeeById(id));
+    }
 }
